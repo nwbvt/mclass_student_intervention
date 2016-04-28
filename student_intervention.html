@@ -267,12 +267,12 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Compute desired values - replace each &#39;?&#39; with an appropriate expression/function call</span>
 <span class="n">n_students</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">student_data</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">n_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">student_data</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">n_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">student_data</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1">#subtract out target</span>
 <span class="n">n_passed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span><span class="p">])</span>
 <span class="n">n_failed</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">student_data</span><span class="p">[</span><span class="n">student_data</span><span class="p">[</span><span class="s1">&#39;passed&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">])</span>
 <span class="n">grad_rate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_passed</span><span class="p">)</span><span class="o">/</span><span class="n">n_students</span>
@@ -280,7 +280,7 @@ div#notebook {
 <span class="k">print</span> <span class="s2">&quot;Number of students who passed: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_passed</span><span class="p">)</span>
 <span class="k">print</span> <span class="s2">&quot;Number of students who failed: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_failed</span><span class="p">)</span>
 <span class="k">print</span> <span class="s2">&quot;Number of features: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_features</span><span class="p">)</span>
-<span class="k">print</span> <span class="s2">&quot;Graduation rate of the class: {:.2f}%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">grad_rate</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Graduation rate of the class: {:.2f}%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">grad_rate</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -296,8 +296,8 @@ div#notebook {
 <pre>Total number of students: 395
 Number of students who passed: 265
 Number of students who failed: 130
-Number of features: 31
-Graduation rate of the class: 0.67%
+Number of features: 30
+Graduation rate of the class: 67.09%
 </pre>
 </div>
 </div>
@@ -858,7 +858,8 @@ F1 score for test set: 0.769230769231
 <table>
 <thead><tr>
 <th>Size</th>
-<th>F1 Score</th>
+<th>F1 Score (Training)</th>
+<th>F1 Score (Testing)</th>
 <th>Training Time</th>
 <th>Prediction Time</th>
 </tr>
@@ -866,18 +867,21 @@ F1 score for test set: 0.769230769231
 <tbody>
 <tr>
 <td>100</td>
+<td>0.816901408451</td>
 <td>0.778554778555</td>
 <td>0.001</td>
 <td>0.003</td>
 </tr>
 <tr>
 <td>200</td>
+<td>0.835087719298</td>
 <td>0.776632302405</td>
 <td>0.001</td>
 <td>0.004</td>
 </tr>
 <tr>
 <td>300</td>
+<td>0.854415274463</td>
 <td>0.746268656716</td>
 <td>0.001</td>
 <td>0.003</td>
@@ -901,7 +905,8 @@ F1 score for test set: 0.769230769231
 <table>
 <thead><tr>
 <th>Size</th>
-<th>F1 Score</th>
+<th>F1 Score (Training)</th>
+<th>F1 Score (Testing)</th>
 <th>Training Time</th>
 <th>Prediction Time</th>
 </tr>
@@ -909,18 +914,21 @@ F1 score for test set: 0.769230769231
 <tbody>
 <tr>
 <td>100</td>
+<td>1.0</td>
 <td>0.67374005305</td>
 <td>0.001</td>
 <td>0.000</td>
 </tr>
 <tr>
 <td>200</td>
+<td>1.0</td>
 <td>0.674418604651</td>
 <td>0.001</td>
 <td>0.000</td>
 </tr>
 <tr>
 <td>300</td>
+<td>1.0</td>
 <td>0.769230769231</td>
 <td>0.002</td>
 <td>0.000</td>
@@ -944,7 +952,8 @@ F1 score for test set: 0.769230769231
 <table>
 <thead><tr>
 <th>Size</th>
-<th>F1 Score</th>
+<th>F1 Score (Training)</th>
+<th>F1 Score (Testing)</th>
 <th>Training Time</th>
 <th>Prediction Time</th>
 </tr>
@@ -952,18 +961,21 @@ F1 score for test set: 0.769230769231
 <tbody>
 <tr>
 <td>100</td>
+<td>1.0</td>
 <td>0.757793764988</td>
 <td>0.040</td>
 <td>0.001</td>
 </tr>
 <tr>
 <td>200</td>
+<td>0.996415770609</td>
 <td>0.794520547945</td>
 <td>0.051</td>
 <td>0.001</td>
 </tr>
 <tr>
 <td>300</td>
+<td>0.968369829684</td>
 <td>0.780141843972</td>
 <td>0.060</td>
 <td>0.000</td>
@@ -973,6 +985,19 @@ F1 score for test set: 0.769230769231
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
@@ -996,7 +1021,7 @@ F1 score for test set: 0.769230769231
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>I'm proposing using Gradient Boosting for this project.  It got among the best F1 score, especially for smaller training sizes.  KNN did perform about as well, but Decision Trees performed fairly poorly until it got large training sizes.  And while it had the slowest training times, it had much quicker prediction times than KNN.  Since training can be done offline pretty easily (such as by running it overnight when the schools are closed) its not going to be as important as having acceptable scoring times which may need to be run on demand.</p>
 <p>But perhaps the most important reason to choose it over KNN (the only other model that had as good F1 scores) is that it is not hard to interpret.  With a KNN model the best you can say is that a particular student was classified that way because they were similar to other students that had those results.  While this may be acceptable from a mathematical perspective, the educational sector tends to have to deal with more political "complications".  Due to this, a model where you can better visualize the process with regard to the features (and not the training data) may be critical.</p>
-<p>Gradient Tree Boosting is an ensemble algorithim where many simple models are combined into a more powerful model.  Hundreds of very simple decision trees are built using the data and then combined to make a prediction.  With boosting algorithims such as this, an iterative approach is used in which the after each iteration, the data which the model previously did the worst on is given a higher weight.</p>
+<p>Gradient Tree Boosting is basically a way to come up with many simple models for the data and then combines them together to make a much more powerful model.  It goes through a number of rounds, each time it tries to come up with a set of rules that correctly classify the given data.  The trick is that each round the data points are weighed differently.  In a given round, the data points that were previously classified correctly are weighed less, while those that it failed to classify are weighed more.  This means each round it spends more time trying to learn the data it previously got wrong, while spending less time on the data that is can already classify.  This works much like a student studying for an exam; instead of spending lots of time studying topics they already know, the student will (or at least should) spend more time on the topics they having trouble with.  Then after all the rounds are completed, each of the rules that were developed in each round are combined, with more weight being given to those rules that were best able to classify the data.</p>
 
 </div>
 </div>
