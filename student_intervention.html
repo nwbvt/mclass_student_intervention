@@ -1028,13 +1028,15 @@ F1 score for test set: 0.769230769231
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="prompt input_prompt">In&nbsp;[130]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.grid_search</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">make_scorer</span>
 <span class="n">estimator</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">()</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="s1">&#39;learning_rate&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)}</span>
-<span class="n">gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+<span class="n">f1_scorer</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">f1_score</span><span class="p">,</span> <span class="n">pos_label</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">f1_scorer</span><span class="p">)</span>
 <span class="n">gs</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 
@@ -1046,7 +1048,7 @@ F1 score for test set: 0.769230769231
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[120]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[130]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -1059,7 +1061,8 @@ F1 score for test set: 0.769230769231
               warm_start=False),
        fit_params={}, iid=True, n_jobs=1,
        param_grid={&apos;learning_rate&apos;: (0.01, 0.05, 0.1, 0.2), &apos;max_depth&apos;: (1, 2, 3, 4, 5)},
-       pre_dispatch=&apos;2*n_jobs&apos;, refit=True, scoring=None, verbose=0)</pre>
+       pre_dispatch=&apos;2*n_jobs&apos;, refit=True,
+       scoring=make_scorer(f1_score, pos_label=yes), verbose=0)</pre>
 </div>
 
 </div>
@@ -1070,7 +1073,7 @@ F1 score for test set: 0.769230769231
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="prompt input_prompt">In&nbsp;[131]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">gs</span><span class="o">.</span><span class="n">best_params_</span>
@@ -1084,11 +1087,11 @@ F1 score for test set: 0.769230769231
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[121]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[131]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&apos;learning_rate&apos;: 0.01, &apos;max_depth&apos;: 5}</pre>
+<pre>{&apos;learning_rate&apos;: 0.01, &apos;max_depth&apos;: 1}</pre>
 </div>
 
 </div>
@@ -1099,7 +1102,7 @@ F1 score for test set: 0.769230769231
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[122]:</div>
+<div class="prompt input_prompt">In&nbsp;[132]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">predict_labels</span><span class="p">(</span><span class="n">gs</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
@@ -1122,11 +1125,11 @@ Prediction time (secs): 0.001
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[122]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[132]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.80851063829787229</pre>
+<pre>0.82802547770700641</pre>
 </div>
 
 </div>
@@ -1140,7 +1143,7 @@ Prediction time (secs): 0.001
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The final F1 score is 0.8085</p>
+<p>The final F1 score is 0.82802547770700641</p>
 
 </div>
 </div>
